@@ -1,4 +1,4 @@
-{
+[{
 	"prefix": "ads",
 	"api_version": "5.68",
 	"methods": [
@@ -1019,4 +1019,113 @@
 			]
 	}
 	]
-}
+},
+{
+	"prefix": "utils",
+	"api_version": "5.68",
+	"methods": [
+	{
+		"name": "checkLink",
+		"limit": 0,
+		"desc": "Возвращает информацию о том, является ли внешняя ссылка заблокированной на сайте ВКонтакте",
+		"params": [
+			{
+				"name": "url",
+				"required": 1,
+				"type": "str"
+			}]
+	},
+	{
+		"name": "deleteFromLastShortened",
+		"limit": 0,
+		"desc": "Удаляет сокращенную ссылку из списка пользователя",
+		"params": [
+			{
+				"name": "key",
+				"required": 1,
+				"type": "str"
+			}]
+	},
+	{
+		"name": "getLastShortenedLinks",
+		"limit": 0,
+		"desc": "Получает список сокращенных ссылок для текущего пользователя",
+		"params": [
+			{
+				"name": "count",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "offset",
+				"required": 0,
+				"type": "int"
+			}]
+	},
+	{
+		"name": "getLinkStats",
+		"limit": 0,
+		"desc": "Возвращает статистику переходов по сокращенной ссылке",
+		"params": [
+			{
+				"name": "key",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "access_key",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "interval",
+				"required": 0,
+				"type": "str",
+				"limited_by": ["hour", "day", "week", "month", "forever"]
+			},
+			{
+				"name": "intervals_count",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "extended",
+				"required": 0,
+				"type": "int"
+			}]
+	},
+	{
+		"name": "getServerTime",
+		"limit": 0,
+		"desc": "Возвращает текущее время на сервере ВКонтакте в unixtime",
+		"params": []
+	},
+	{
+		"name": "getShortLink",
+		"limit": 0,
+		"desc": "Позволяет получить URL, сокращенный с помощью vk.cc",
+		"params": [
+			{
+				"name": "url",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "private",
+				"required": 0,
+				"type": "int"
+			}]
+	},
+	{
+		"name": "resolveScreenName",
+		"limit": 0,
+		"desc": "Определяет тип объекта (пользователь, сообщество, приложение) и его идентификатор по короткому имени screen_name",
+		"params": [
+			{
+				"name": "screen_name",
+				"required": 1,
+				"type": "str"
+			}]
+	}
+	]
+}]
