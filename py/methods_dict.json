@@ -1,0 +1,1022 @@
+{
+	"prefix": "ads",
+	"api_version": "5.68",
+	"methods": [
+	{
+		"name": "addOfficeUsers",
+		"limit": 10,
+		"desc": "Добавляет администраторов и/или наблюдателей в рекламный кабинет",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "data",
+				"required": 1,
+				"type": "list"
+			}]
+	},
+	{
+		"name": "checkLink",
+		"limit": 0,
+		"desc": "Проверяет ссылку на рекламируемый объект",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "link_type",
+				"required": 1,
+				"type": "str",
+				"limited_by": ["community", "post", "application", "video", "site"]
+			},
+			{
+				"name": "link_url",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "campaign_id",
+				"required": 1,
+				"type": "str"
+			}]
+	},
+	{
+		"name": "createAds",
+		"limit": 5,
+		"desc": "Создает рекламные объявления",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "data",
+				"required": 1,
+				"type": "list"
+			}
+			]
+	},
+	{
+		"name": "createCampaigns",
+		"limit": 50,
+		"desc": "Создает рекламные кампании",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "data",
+				"required": 1,
+				"type": "list"
+			}
+			]
+	},
+	{
+		"name": "createClients",
+		"limit": 50,
+		"desc": "Создаёт клиентов рекламного агентства",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "data",
+				"required": 1,
+				"type": "list"
+			}
+			]
+	},
+	{
+		"name": "createLookalikeRequest",
+		"limit": 0,
+		"desc": "Создаёт запрос на поиск похожей аудитории",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "source_type",
+				"required": 1,
+				"type": "str",
+				"limited_by": ["retargeting_group"]
+			},
+			{
+				"name": "retargeting_group_id",
+				"required": 0,
+				"type": "str"
+			}
+			]
+	},
+	{
+		"name": "createTargetGroup",
+		"limit": 0,
+		"desc": "Создает аудиторию для ретаргетинга рекламных объявлений на пользователей, которые посетили сайт рекламодателя (просмотрели информации о товаре, зарегистрировались и т.д.)",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "name",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "retargeting_group_id",
+				"required": 0,
+				"type": "str"
+			},
+			{
+				"name": "lifetime",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "target_pixel_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "target_pixel_rules",
+				"required": 0,
+				"type": "list"
+			}
+			]
+	},
+	{
+		"name": "createTargetPixel",
+		"limit": 0,
+		"desc": "Создаёт пиксель ретаргетинга",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "name",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "domain",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "category_id",
+				"required": 1,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "deleteAds",
+		"limit": 100,
+		"desc": "Архивирует рекламные объявления",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "ids",
+				"required": 1,
+				"type": "str"
+			}
+			]
+	},
+	{
+		"name": "deleteCampaigns",
+		"limit": 100,
+		"desc": "Архивирует рекламные кампании",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "ids",
+				"required": 1,
+				"type": "str"
+			}
+			]
+	},
+	{
+		"name": "deleteClients",
+		"limit": 10,
+		"desc": "Архивирует клиентов рекламного агентства",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "ids",
+				"required": 1,
+				"type": "str"
+			}
+			]
+	},
+	{
+		"name": "deleteTargetGroup",
+		"limit": 0,
+		"desc": "Удаляет аудиторию ретаргетинга",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "target_group_id",
+				"required": 1,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "deleteTargetPixel",
+		"limit": 0,
+		"desc": "Удаляет пиксель ретаргетинга",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "target_pixel_id",
+				"required": 1,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "getAccounts",
+		"limit": 0,
+		"desc": "Возвращает список рекламных кабинетов",
+		"params": []
+	},
+	{
+		"name": "getAds",
+		"limit": 0,
+		"desc": "Возвращает список рекламных объявлений",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "include_deleted",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "campaign_ids",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "ad_ids",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "limit",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "offset",
+				"required": 0,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "getAdsLayout",
+		"limit": 0,
+		"desc": "Возвращает описания внешнего вида рекламных объявлений",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "include_deleted",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "campaign_ids",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "ad_ids",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "limit",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "offset",
+				"required": 0,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "getAdsTargeting",
+		"limit": 0,
+		"desc": "Возвращает параметры таргетинга рекламных объявлений",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "include_deleted",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "campaign_ids",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "ad_ids",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "limit",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "offset",
+				"required": 0,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "getBudget",
+		"limit": 0,
+		"desc": "Возвращает текущий бюджет рекламного кабинета",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "getCampaigns",
+		"limit": 0,
+		"desc": "Возвращает список кампаний рекламного кабинета",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "include_deleted",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "campaign_ids",
+				"required": 1,
+				"type": "str"
+			}
+			]
+	},
+	{
+		"name": "getCategories",
+		"limit": 0,
+		"desc": "Позволяет получить возможные тематики рекламных объявлений",
+		"params": [
+			{
+				"name": "lang",
+				"required": 1,
+				"type": "str",
+				"limited_by": ["ru", "ua", "be", "en", "es", "fi", "de", "it"]
+			}
+			]
+	},
+	{
+		"name": "getClients",
+		"limit": 0,
+		"desc": "Возвращает список клиентов рекламного агентства",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}]
+	},
+	{
+		"name": "getDemographics",
+		"limit": 0,
+		"desc": "Возвращает демографическую статистику по рекламным объявлениям или кампаниям",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "ids_type",
+				"required": 1,
+				"type": "str",
+				"limited_by": ["ad", "campaign"]
+			},
+			{
+				"name": "ids",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "period",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "date_from",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "date_to",
+				"required": 1,
+				"type": "str"
+			}
+			]
+	},
+	{
+		"name": "getFloodStats",
+		"limit": 0,
+		"desc": "Возвращает информацию о текущем состоянии счетчика — количество оставшихся запусков методов и время до следующего обнуления счетчика в секундах",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "getLookalikeRequests",
+		"limit": 0,
+		"desc": "Возвращает список запросов на поиск похожей аудитории",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "requests_ids",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "offset",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "limit",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "sort_by",
+				"required": 0,
+				"type": "str",
+				"limited_by": ["id", "update_time"]
+			}
+			]
+	},
+	{
+		"name": "getOfficeUsers",
+		"limit": 0,
+		"desc": "Возвращает список администраторов и наблюдателей рекламного кабинета",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "getPostsReach",
+		"limit": 0,
+		"desc": "Возвращает подробную статистику по охвату рекламных записей из объявлений и кампаний для продвижения записей сообщества",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "ids_type",
+				"required": 1,
+				"type": "str",
+				"limited_by": ["ad", "campaign"]
+			},
+			{
+				"name": "ids",
+				"required": 1,
+				"type": "str"
+			}
+			]
+	},
+	{
+		"name": "getRejectionReason",
+		"limit": 0,
+		"desc": "Возвращает причину, по которой указанному объявлению было отказано в прохождении премодерации",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "ad_id",
+				"required": 1,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "getStatistics",
+		"limit": 0,
+		"desc": "Возвращает статистику показателей эффективности по рекламным объявлениям, кампаниям, клиентам или всему кабинету",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "ids_type",
+				"required": 1,
+				"type": "str",
+				"limited_by": ["ad", "campaign", "client", "office"]
+			},
+			{
+				"name": "ids",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "period",
+				"required": 1,
+				"type": "str",
+				"limited_by": ["day", "month", "overall"]
+			},
+			{
+				"name": "date_from",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "date_to",
+				"required": 1,
+				"type": "str"
+			}
+			]
+	},
+	{
+		"name": "getSuggestions",
+		"limit": 0,
+		"desc": "Возвращает набор подсказок для различных параметров таргетинга",
+		"params": [
+			{
+				"name": "section",
+				"required": 1,
+				"type": "str",
+				"limited_by": ["countries", "regions", "cities", "districts", "stations", "streets", "schools", "interest_categories", "positions", "religions", "user_devices", "user_os", "user_browsers"]
+			}, 
+			{
+				"name": "ids",
+				"required": 0,
+				"type": "str"
+			},
+			{
+				"name": "q",
+				"required": 0,
+				"type": "str"
+			},
+			{
+				"name": "country",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "cities",
+				"required": 0,
+				"type": "str"
+			},
+			{
+				"name": "lang",
+				"required": 0,
+				"type": "str",
+				"limited_by": ["ru", "en", "ua"]
+			}
+			]
+	},
+	{
+		"name": "getTargetGroups",
+		"limit": 0,
+		"desc": "Возвращает набор подсказок для различных параметров таргетинга",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "extended",
+				"required": 0,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "getTargetPixels",
+		"limit": 0,
+		"desc": "Возвращает список пикселей ретаргетинга",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "getTargetingStats",
+		"limit": 0,
+		"desc": "Возвращает размер целевой аудитории таргетинга, а также рекомендованные значения CPC и CPM",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "criteria",
+				"required": 0,
+				"type": "dict"
+			},
+			{
+				"name": "ad_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "ad_format",
+				"required": 0,
+				"type": "int",
+				"limited_by": [1,2,3,4,7,8,9,10]
+			},
+			{
+				"name": "ad_platform",
+				"required": 0,
+				"type": "str"
+			},
+			{
+				"name": "ad_platform_no_wall",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "link_url",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "link_domain",
+				"required": 0,
+				"type": "str"
+			}
+			]
+	},
+	{
+		"name": "getUploadURL",
+		"limit": 0,
+		"desc": "Возвращает URL-адрес для загрузки фотографии рекламного объявления",
+		"params": [
+			{
+				"name": "ad_format",
+				"required": 1,
+				"type": "int",
+				"limited_by": [1,2,3,4,7,8,9,10]
+			}
+			]
+	},
+	{
+		"name": "getVideoUploadURL",
+		"limit": 0,
+		"desc": "Возвращает URL-адрес для загрузки видеозаписи рекламного объявления",
+		"params": []
+	},
+	{
+		"name": "importTargetContacts",
+		"limit": 1000,
+		"desc": "Импортирует список контактов рекламодателя для учета зарегистрированных во ВКонтакте пользователей в аудитории ретаргетинга",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "target_group_id",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "contacts",
+				"required": 1,
+				"type": "str"
+			}
+			]
+	},
+	{
+		"name": "removeOfficeUsers",
+		"limit": 10,
+		"desc": "Удаляет администраторов и/или наблюдателей из рекламного кабинета",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "ids",
+				"required": 1,
+				"type": "str"
+			}
+			]
+	},
+	{
+		"name": "saveLookalikeRequestResult",
+		"limit": 0,
+		"desc": "Сохраняет результат поиска похожей аудитории",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "request_id",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "level",
+				"required": 1,
+				"type": "int"
+			}
+			]
+	},
+	{
+		"name": "updateAds",
+		"limit": 5,
+		"desc": "Редактирует рекламные объявления",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "data",
+				"required": 1,
+				"type": "list"
+			}
+			]
+	},
+	{
+		"name": "updateCampaigns",
+		"limit": 50,
+		"desc": "Редактирует рекламные кампании",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "data",
+				"required": 1,
+				"type": "list"
+			}
+			]
+	},
+	{
+		"name": "updateClients",
+		"limit": 50,
+		"desc": "Редактирует клиентов рекламного агентства",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "data",
+				"required": 1,
+				"type": "list"
+			}
+			]
+	},
+	{
+		"name": "updateTargetGroup",
+		"limit": 0,
+		"desc": "Редактирует аудиторию ретаргетинга",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "target_group_id",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "name",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "domain",
+				"required": 0,
+				"type": "str"
+			},
+			{
+				"name": "lifetime",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "target_pixel_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "target_pixel_rules",
+				"required": 0,
+				"type": "list"
+			}
+			]
+	},
+	{
+		"name": "updateTargetPixel",
+		"limit": 0,
+		"desc": "Редактирует пиксель ретаргетинга",
+		"params": [
+			{
+				"name": "account_id",
+				"required": 1,
+				"type": "int"
+			}, 
+			{
+				"name": "client_id",
+				"required": 0,
+				"type": "int"
+			},
+			{
+				"name": "target_pixel_id",
+				"required": 1,
+				"type": "int"
+			},
+			{
+				"name": "name",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "domain",
+				"required": 1,
+				"type": "str"
+			},
+			{
+				"name": "category_id",
+				"required": 1,
+				"type": "int"
+			}
+			]
+	}
+	]
+}
