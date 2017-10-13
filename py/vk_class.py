@@ -10,7 +10,7 @@ class VKInstance:
 	def __init__(self, config):
 
 		self.config = config
-		dict_file = open(os.path.dirname(__file__) + '/dict.json')
+		dict_file = open(os.path.dirname(__file__) + '/methods_dict.json')
 		self.definition = json.load(dict_file)
 		self.methods = [a['name'] for a in self.definition['methods']]
 		dict_file.close()
