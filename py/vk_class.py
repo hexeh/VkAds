@@ -31,6 +31,9 @@ class VKInstance:
 			if str(self.config['expires_at']) != 'Never':
 				if datetime.datetime.strptime(self.config['expires_at'], '%Y-%m-%d %H:%M:%S.%f') <= datetime.datetime.now():
 					processAuth = True
+			if 'scopes' in self.config.keys():
+				if self.definition['prefix'] not in self.config['keys']:
+					processAuth = True
 		else:
 			processAuth = True
 
@@ -65,12 +68,14 @@ class VKInstance:
 				self.config.update({
 					'access_token': token_data['access_token'], 
 					'expires_at': str(expiration),
-					'token_user': token_data['user_id']
+					'token_user': token_data['user_id'],
+					'scopes': self.definition['prefix'] + ',offline'
 				})
-				print('\nAccess Details:\nToken: {0!s}\nExpires At: {1!s}\nGranted for User: {2!s}'.format(
+				print('\nAccess Details:\nToken: {0!s}\nExpires At: {1!s}\nGranted for User: {2!s}\nScopes: {3!s}'.format(
 					self.config['access_token'],
 					self.config['expires_at'],
-					self.config['token_user']
+					self.config['token_user'],
+					self.definition['prefix'] + ',offline'
 					)
 				)
 				with open('vk_config.json', 'w') as cfg:
