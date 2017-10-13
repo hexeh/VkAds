@@ -1,7 +1,7 @@
 # VkAds
 Collection of wrappers for Ads methods of VKontakte
 
-Example:
+## Example:
 
 ```python
 # -*- coding: utf-8 -*-
@@ -22,3 +22,15 @@ if __name__ == '__main__':
 
 	pp.pprint(vk.callMethod('getClients', {'account_id': 1}))
 ```
+## Requirements
+
+### App
+
+Create VK App [here](https://vk.com/apps)
+
+ * App Type: **Web**
+ * App Redirect URI: **https://vk.com/**
+ 
+### System
+
+ * Python v3.0.6 or higher
