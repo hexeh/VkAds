@@ -16,6 +16,7 @@ class VKInstance:
 		dict_file.close()
 		self.req_base = 'https://api.vk.com/method/' + self.definition['prefix']
 		self.doc_base = 'https://vk.com/dev/ads/' + self.definition['prefix']
+		self.getAccess()
 
 	def getAccess(self):
 
