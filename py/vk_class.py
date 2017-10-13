@@ -7,11 +7,17 @@ import os
 
 class VKInstance:
 	
-	def __init__(self, config):
+	def __init__(self, config, type):
 
 		self.config = config
-		dict_file = open(os.path.dirname(__file__) + '/methods_dict.json')
+		dict_file = open(os.path.dirname(__file__) + '/dict.json')
 		self.definition = json.load(dict_file)
+		self.definition = [a for a in self.definition if a['prefix'] == type]
+		if len(self.definition) != 0:
+			self.definition = self.definition[0]
+		else:
+			msg = 'Unknown API endpoint: {0!r}'.format(type)
+			raise Exception(msg)
 		self.methods = [a['name'] for a in self.definition['methods']]
 		dict_file.close()
 		self.req_base = 'https://api.vk.com/method/' + self.definition['prefix']
