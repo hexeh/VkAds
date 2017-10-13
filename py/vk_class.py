@@ -10,6 +10,27 @@ class VKInstance:
 	def __init__(self, config, type):
 
 		self.config = config
+		self.available_scopes = [
+			'notify',
+			'friends',
+			'photos',
+			'audio',
+			'video',
+			'pages',
+			'status',
+			'notes',
+			'messages',
+			'wall',
+			'ads',
+			'offline',
+			'docs',
+			'groups',
+			'notifications',
+			'stats',
+			'email',
+			'market',
+			'manage'
+		]
 		dict_file = open(os.path.dirname(__file__) + '/dict.json')
 		self.definition = json.load(dict_file)
 		self.definition = [a for a in self.definition if a['prefix'] == type]
@@ -18,6 +39,9 @@ class VKInstance:
 		else:
 			msg = 'Unknown API endpoint: {0!r}'.format(type)
 			raise Exception(msg)
+		self.grants = ['offline']
+		if self.definition['prefix'] in self.available_scopes:
+			self.grants.insert(0, self.definition['prefix'])
 		self.methods = [a['name'] for a in self.definition['methods']]
 		dict_file.close()
 		self.req_base = 'https://api.vk.com/method/' + self.definition['prefix']
@@ -32,8 +56,13 @@ class VKInstance:
 				if datetime.datetime.strptime(self.config['expires_at'], '%Y-%m-%d %H:%M:%S.%f') <= datetime.datetime.now():
 					processAuth = True
 			if 'scopes' in self.config.keys():
-				if self.definition['prefix'] not in self.config['keys']:
+				grants_check = 0
+				for g in self.grants:
+					grants_check += sum([1 for i in self.config['scopes'] if g == i])
+				if grants_check == 0:
 					processAuth = True
+			else:
+				processAuth = True
 		else:
 			processAuth = True
 
@@ -41,9 +70,9 @@ class VKInstance:
 			if 'client_id' not in self.config.keys() and 'client_secret' not in self.config.keys():
 				grants_error = 'Please provide client_id and client_secret'
 				raise Exception(grants_error)
-			code_url = 'https://oauth.vk.com/authorize?client_id={0!s}&redirect_uri=https://vk.com/&display=page&scope={1!s},offline&response_type=code&v={2!s}'.format(
+			code_url = 'https://oauth.vk.com/authorize?client_id={0!s}&redirect_uri=https://vk.com/&display=page&scope={1!s}&response_type=code&v={2!s}'.format(
 				self.config['client_id'],
-				self.definition['prefix'],
+				','.join(self.grants),
 				self.definition['api_version']
 				)
 			print('Open following URL in Your Browser: \n\n' + code_url + '\n')
@@ -69,13 +98,13 @@ class VKInstance:
 					'access_token': token_data['access_token'], 
 					'expires_at': str(expiration),
 					'token_user': token_data['user_id'],
-					'scopes': self.definition['prefix'] + ',offline'
+					'scopes': ','.join(self.grants)
 				})
 				print('\nAccess Details:\nToken: {0!s}\nExpires At: {1!s}\nGranted for User: {2!s}\nScopes: {3!s}'.format(
 					self.config['access_token'],
 					self.config['expires_at'],
 					self.config['token_user'],
-					self.definition['prefix'] + ',offline'
+					','.join(self.grants)
 					)
 				)
 				with open('vk_config.json', 'w') as cfg:
