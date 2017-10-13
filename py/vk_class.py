@@ -22,12 +22,8 @@ class VKInstance:
 
 		processAuth = False
 		if 'expires_at' in self.config.keys() and 'access_token' in self.config.keys():
-			if str(self.config['expires_at']) == 'Never':
-				print('Token is still alive')
-			else:
-				if datetime.datetime.strptime(self.config['expires_at'], '%Y-%m-%d %H:%M:%S.%f') > datetime.datetime.now():
-					print('Token is still alive')
-				else:
+			if str(self.config['expires_at']) != 'Never':
+				if datetime.datetime.strptime(self.config['expires_at'], '%Y-%m-%d %H:%M:%S.%f') <= datetime.datetime.now():
 					processAuth = True
 		else:
 			processAuth = True
