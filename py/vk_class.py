@@ -19,47 +19,63 @@ class VKInstance:
 
 	def getAccess(self):
 
-		if 'expires_at'
-		code_url = 'https://oauth.vk.com/authorize?client_id={0!s}&redirect_uri=https://vk.com/&display=page&scope={1!s},offline&response_type=code&v={2!s}'.format(
-			self.config['client_id'],
-			self.definition['prefix'],
-			self.definition['api_version']
-			)
-		print('Open following URL in Your Browser: \n\n' + code_url + '\n')
-		code = input('Please paste Code Here (Appears in URL): ')
-		if len(code) == 0:
-			raise Exception('Code can\'t be empty!')
-		access_url = 'https://oauth.vk.com/access_token?client_id={0!s}&client_secret={1}&redirect_uri=https://vk.com/&code={2!s}'.format(
-			self.config['client_id'],
-			self.config['client_secret'],
-			code
-			)
-		access_q = requests.get(access_url)
-		if access_q.status_code == 200:
-			access_r = json.loads(access_q.text)
-			if 'access_token' in list(access_r.keys()):
-				token_data = access_r
+		processAuth = False
+		if 'expires_at' in self.config.keys() and 'access_token' in self.config.keys():
+			if str(self.config['expires_at']) == 'Never':
+				print('Token is still alive')
 			else:
-				error = 'Error Request with message: {0!s}.\nError description: {1}'.format(access_r['error'], access_r['error_description'])
-				raise Exception(error)
-			expiration = datetime.datetime.now() + datetime.timedelta(0, token_data['expires_in']) if token_data['expires_in'] > 0 else 'Never'
-			self.config.update({
-				'access_token': token_data['access_token'], 
-				'expires_at': str(expiration),
-				'token_user': token_data['user_id']
-			})
-			print('\nAccess Details:\nToken: {0!s}\nExpires At: {1!s}\nGranted for User: {2!s}'.format(
-				self.config['access_token'],
-				self.config['expires_at'],
-				self.config['token_user']
-				)
-			)
-			with open('vk_config.json', 'w') as cfg:
-				json.dump(self.config, cfg)
-			print('\nConfigruation stored in current folder as "vk_config.json"\n')
+				if datetime.datetime.strptime(self.config['expires_at'], '%Y-%m-%d %H:%M:%S.%f') > datetime.datetime.now():
+					print('Token is still alive')
+				else:
+					processAuth = True
 		else:
-			msg = 'Server Responded with Status Code: {0!s}. Response Text: {1}'.format(access_q.status_code, access_q.text)
-			raise Exception(msg)
+			processAuth = True
+
+		if processAuth:
+			if 'client_id' not in self.config.keys() and 'client_secret' not in self.config.keys():
+				grants_error = 'Please provide client_id and client_secret'
+				raise Exception(grants_error)
+			code_url = 'https://oauth.vk.com/authorize?client_id={0!s}&redirect_uri=https://vk.com/&display=page&scope={1!s},offline&response_type=code&v={2!s}'.format(
+				self.config['client_id'],
+				self.definition['prefix'],
+				self.definition['api_version']
+				)
+			print('Open following URL in Your Browser: \n\n' + code_url + '\n')
+			code = input('Please paste Code Here (Appears in URL): ')
+			if len(code) == 0:
+				code_error = 'Code can\'t be empty!'
+				raise Exception(code_error)
+			access_url = 'https://oauth.vk.com/access_token?client_id={0!s}&client_secret={1}&redirect_uri=https://vk.com/&code={2!s}'.format(
+				self.config['client_id'],
+				self.config['client_secret'],
+				code
+				)
+			access_q = requests.get(access_url)
+			if access_q.status_code == 200:
+				access_r = json.loads(access_q.text)
+				if 'access_token' in list(access_r.keys()):
+					token_data = access_r
+				else:
+					error = 'Error Request with message: {0!s}.\nError description: {1}'.format(access_r['error'], access_r['error_description'])
+					raise Exception(error)
+				expiration = datetime.datetime.now() + datetime.timedelta(0, token_data['expires_in']) if token_data['expires_in'] > 0 else 'Never'
+				self.config.update({
+					'access_token': token_data['access_token'], 
+					'expires_at': str(expiration),
+					'token_user': token_data['user_id']
+				})
+				print('\nAccess Details:\nToken: {0!s}\nExpires At: {1!s}\nGranted for User: {2!s}'.format(
+					self.config['access_token'],
+					self.config['expires_at'],
+					self.config['token_user']
+					)
+				)
+				with open('vk_config.json', 'w') as cfg:
+					json.dump(self.config, cfg)
+				print('\nConfigruation stored in current folder as "vk_config.json"\n')
+			else:
+				msg = 'Server Responded with Status Code: {0!s}. Response Text: {1}'.format(access_q.status_code, access_q.text)
+				raise Exception(msg)
 
 	def callMethod(self, method, params = {}):
 		if method not in self.methods:
