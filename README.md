@@ -18,7 +18,7 @@ if __name__ == '__main__':
 		config_f.close()
 	except:
 		config = {}
-	vk = VKInstance(config)
+	vk = VKInstance(config, 'ads')
 
 	pp.pprint(vk.callMethod('getClients', {'account_id': 1}))
 ```
