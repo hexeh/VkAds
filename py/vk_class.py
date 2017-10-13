@@ -58,8 +58,8 @@ class VKInstance:
 			if 'scopes' in self.config.keys():
 				grants_check = 0
 				for g in self.grants:
-					grants_check += sum([1 for i in self.config['scopes'] if g == i])
-				if grants_check == 0:
+					grants_check += sum([1 if g == i else 0 for i in self.config['scopes']])
+				if grants_check != len(self.grants):
 					processAuth = True
 			else:
 				processAuth = True
