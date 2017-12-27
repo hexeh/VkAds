@@ -119,9 +119,11 @@ class VKInstance:
 			raise NameError('Method Is Not Supported! Refer to docs: https://vk.com/dev/ads')
 		currentConfig = [a for a in self.definition['methods'] if a['name'] == method][0]
 		requiredParams = [a['name'] for a in currentConfig['params'] if a['required']]
-		if set(requiredParams) != set(list(params.keys())):
-			msg = 'List of parameters is not correct. Please refer to docs: {0!s}'.format(self.doc_base + '.' + method)
-			raise Exception(msg)
+		allParams = [a['name'] for a in currentConfig['params']]
+		if set(allParams) != set(list(params.keys())):
+			if set(requiredParams) != set(list(params.keys())):
+				msg = 'List of parameters is not correct. Please refer to docs: {0!s}'.format(self.doc_base + '.' + method)
+				raise Exception(msg)
 		for ep in currentConfig['params']:
 			if type(params[ep['name']]).__name__ != ep['type']:
 				msg = 'Parameter {0} should be of type {1!r}, but {2!r} given'.format(ep['name'], ep['type'], type(params[ep['name']]).__name__)
