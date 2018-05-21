@@ -5,7 +5,19 @@ import requests
 import datetime
 import os
 
-class VKInstance:
+def sublist(ls1, ls2):
+	def get_all_in(one, another):
+		for element in one:
+			if element in another:
+				yield element
+
+	for x1, x2 in zip(get_all_in(ls1, ls2), get_all_in(ls2, ls1)):
+		if x1 != x2:
+			return False
+
+	return True
+
+class VK:
 	
 	def __init__(self, config, type):
 
@@ -31,7 +43,7 @@ class VKInstance:
 			'market',
 			'manage'
 		]
-		dict_file = open(os.path.dirname(__file__) + '/dict.json')
+		dict_file = open(os.path.dirname(__file__) + '/methods_dict.json')
 		self.definition = json.load(dict_file)
 		self.definition = [a for a in self.definition if a['prefix'] == type]
 		if len(self.definition) != 0:
@@ -120,21 +132,26 @@ class VKInstance:
 		currentConfig = [a for a in self.definition['methods'] if a['name'] == method][0]
 		requiredParams = [a['name'] for a in currentConfig['params'] if a['required']]
 		allParams = [a['name'] for a in currentConfig['params']]
-		if set(allParams) != set(list(params.keys())):
+		if not sublist(set(allParams),set(list(params.keys()))):
+			checker = []
 			if set(requiredParams) != set(list(params.keys())):
 				msg = 'List of parameters is not correct. Please refer to docs: {0!s}'.format(self.doc_base + '.' + method)
 				raise Exception(msg)
-		for ep in currentConfig['params']:
-			if type(params[ep['name']]).__name__ != ep['type']:
-				msg = 'Parameter {0} should be of type {1!r}, but {2!r} given'.format(ep['name'], ep['type'], type(params[ep['name']]).__name__)
+		for k in params.keys():
+			ev = params[k]
+			pp = [i for i in currentConfig['params'] if k == i['name']][0]
+			p_type = pp['type']
+			p_limit = pp.get('limit',0)
+			if type(ev).__name__ != p_type:
+				msg = 'Parameter {0} should be of type {1!r}, but {2!r} given'.format(ev, p_type, type(k).__name__)
 				raise Exception(msg)
-			if type(params[ep['name']]).__name__ == 'list' and ep['limit'] > 0:
-				if len(params[ep['name']]) > ep['limit']:
+			if p_type == 'list' and p_limit > 0:
+				if len(ev) > p_limit:
 					msg = 'Too much objects for method {0}. Please refer to docs: {1!s}'.format(method, self.doc_base + '.' + method)
 					raise Exception(msg)
-			if type(params[ep['name']]).__name__ == 'str' and 'limited_by' in ep.keys():
-				if params[ep['name']] not in ep['limited_by']:
-					msg = 'Unknown value for {0}. Please refer to docs: {1!s}'.format(ep['name'], self.doc_base + '.' + method)
+			if p_type == 'str' and 'limited_by' in pp.keys():
+				if params[pp['name']] not in pp['limited_by']:
+					msg = 'Unknown value for {0}. Please refer to docs: {1!s}'.format(pp['name'], self.doc_base + '.' + method)
 					raise Exception(msg)
 		composed_query = {
 			'v': self.definition['api_version'],
