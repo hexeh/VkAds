@@ -1,0 +1,8 @@
+{
+	"expires_at": "Never",
+	"access_token": "my_pretty_token_goes_here",
+	"client_id": "my_app_client_id",
+	"client_secret": "my_app_client_secret",
+	"token_user": 123,
+	"scopes": ["ads", "offline"]
+}
